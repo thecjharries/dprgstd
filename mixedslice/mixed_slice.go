@@ -26,3 +26,20 @@ func (s *MixedSlice) SplitInHalf() (MixedSlice, MixedSlice) {
 	halfLen := int(math.Ceil(float64(len(*s)) / 2))
 	return (*s)[:halfLen], (*s)[halfLen:]
 }
+
+func (s *MixedSlice) Contains(possibleElement interface{}) bool {
+	for _, element := range *s {
+		if possibleElement == element {
+			return true
+		}
+	}
+	return false
+}
+
+func (s *MixedSlice) AddMissingElements(mixedSlice MixedSlice) {
+	for _, element := range mixedSlice {
+		if !s.Contains(element) {
+			*s = append(*s, element)
+		}
+	}
+}

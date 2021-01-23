@@ -42,3 +42,27 @@ func (s *MixedSliceSuite) TestMixedSliceSplitInHalf(c *C) {
 	c.Assert(returnedFirst, DeepEquals, secondResult[0])
 	c.Assert(returnedSecond, DeepEquals, secondResult[1])
 }
+
+
+func (s *MixedSliceSuite) TestMixedSliceContains(c *C) {
+	mixedSlice := MixedSlice{"1", 2}
+	c.Assert(mixedSlice.Contains(1), Equals, false)
+	c.Assert(mixedSlice.Contains("1"), Equals, true)
+	c.Assert(mixedSlice.Contains(2), Equals, true)
+	c.Assert(mixedSlice.Contains("2"), Equals, false)
+}
+
+func (s *MixedSliceSuite) TestMixedSliceAddMissingElements(c *C) {
+	first := MixedSlice{1, 2}
+	second := MixedSlice{2, 3, 3}
+	result := MixedSlice{1, 2, 3}
+	c.Assert(first, Not(DeepEquals), result)
+	first.AddMissingElements(second)
+	c.Assert(first, DeepEquals, result)
+	third := MixedSlice{"a", "b", "c", 1, 4}
+	fourth := MixedSlice{"a", "x", 34, "4"}
+	result = MixedSlice{"a", "b", "c", 1, 4, "x", 34, "4"}
+	c.Assert(third, Not(DeepEquals), result)
+	third.AddMissingElements(fourth)
+	c.Assert(third, DeepEquals, result)
+}
