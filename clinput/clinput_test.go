@@ -27,12 +27,16 @@ import (
 
 func TestRootClinput(t *testing.T) { TestingT(t) }
 
-type ClinputSuite struct {
-	getInputReader *strings.Reader
+type ClinputSuite struct {}
+
+type getStringInputFixture struct {
+	input string
+	result string
 }
 
-const getStringInputInput string = "test\n"
-const getStringInputOutput string = "test"
+var getStringInputFixtures = []getStringInputFixture{
+	{"test\n", "test"},
+}
 
 type getFloat64InputFixture struct {
 	input string
@@ -60,17 +64,13 @@ var getRawIntWithBitSizeFixtures = []getRawIntWithBitSizeFixture{
 
 
 
-var _ = Suite(&ClinputSuite{
-	getInputReader: strings.NewReader(getStringInputInput),
-})
-
-func (s *ClinputSuite) TestClinput(c *C) {
-
-}
+var _ = Suite(&ClinputSuite{})
 
 func (s *ClinputSuite) TestGetStringInput(c *C) {
-	input := GetStringInput("", s.getInputReader)
-	c.Assert(input, Equals, getStringInputOutput)
+	for _, fixture := range getStringInputFixtures {
+		input := GetStringInput("", strings.NewReader(fixture.input))
+		c.Assert(input, Equals, fixture.result)
+	}
 }
 
 func (s *ClinputSuite) TestGetFloat64Input(c *C) {
