@@ -45,6 +45,21 @@ var getFloat64InputFixtures = []getFloat64InputFixture{
 	{"150.64", 150.64},
 }
 
+
+type getRawIntWithBitSizeFixture struct {
+	input string
+	bitSize int
+	result int64
+}
+
+var getRawIntWithBitSizeFixtures = []getRawIntWithBitSizeFixture{
+	{"1", 0, 1},
+	{"4.2",0,  0},
+	{"150.64", 0, 0},
+}
+
+
+
 var _ = Suite(&ClinputSuite{
 	getInputReader: strings.NewReader(getStringInputInput),
 })
@@ -61,6 +76,13 @@ func (s *ClinputSuite) TestGetStringInput(c *C) {
 func (s *ClinputSuite) TestGetFloat64Input(c *C) {
 	for _, fixture := range getFloat64InputFixtures {
 		input := GetFloat64Input("", strings.NewReader(fixture.input))
+		c.Assert(input, Equals, fixture.result)
+	}
+}
+
+func (s *ClinputSuite) TestGetRawIntWithBitSize(c *C) {
+	for _, fixture := range getRawIntWithBitSizeFixtures {
+		input := getRawIntWithBitSize("", strings.NewReader(fixture.input), fixture.bitSize)
 		c.Assert(input, Equals, fixture.result)
 	}
 }

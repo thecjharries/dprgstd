@@ -38,3 +38,32 @@ func GetFloat64Input(prompt string, source io.Reader) float64 {
 	float64result, _ := strconv.ParseFloat(stringResult, 64)
 	return float64result
 }
+
+func getRawIntWithBitSize(prompt string, source io.Reader, bitSize int) int64 {
+	stringResult := GetStringInput(prompt, source)
+	int64Result, _ := strconv.ParseInt(stringResult, 10, bitSize)
+	return int64Result
+}
+
+func GetIntInput(prompt string, source io.Reader) int {
+	return int(getRawIntWithBitSize(prompt, source, 0))
+}
+
+func GetInt8Input(prompt string, source io.Reader) int8 {
+	return int8(getRawIntWithBitSize(prompt, source, 8))
+}
+
+func GetInt16Input(prompt string, source io.Reader) int16 {
+	return int16(getRawIntWithBitSize(prompt, source, 16))
+}
+
+func GetInt32Input(prompt string, source io.Reader) int32 {
+	return int32(getRawIntWithBitSize(prompt, source, 32))
+}
+
+func GetInt64Input(prompt string, source io.Reader) int64 {
+	return getRawIntWithBitSize(prompt, source, 64)
+}
+
+
+
