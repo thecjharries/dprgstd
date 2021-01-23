@@ -86,3 +86,33 @@ func (s *ClinputSuite) TestGetRawIntWithBitSize(c *C) {
 		c.Assert(input, Equals, fixture.result)
 	}
 }
+
+func (s *ClinputSuite) TestGetIntInput(c *C) {
+	input := GetIntInput("", strings.NewReader("1"))
+	c.Assert(input, Equals, int(1))
+	c.Assert(input, FitsTypeOf, int(1))
+}
+
+func (s *ClinputSuite) TestGetInt8Input(c *C) {
+	input := GetInt8Input("", strings.NewReader("1"))
+	c.Assert(input, Equals, int8(1))
+	c.Assert(input, FitsTypeOf, int8(1))
+}
+
+func (s *ClinputSuite) TestGetInt16Input(c *C) {
+	input := GetInt16Input("", strings.NewReader("1"))
+	c.Assert(input, Equals, int16(1))
+	c.Assert(input, FitsTypeOf, int16(1))
+}
+
+func (s *ClinputSuite) TestGetInt32Input(c *C) {
+	input := GetInt32Input("", strings.NewReader("1"))
+	c.Assert(input, Equals, int32(1))
+	c.Assert(input, FitsTypeOf, int32(1))
+}
+
+func (s *ClinputSuite) TestGetInt64Input(c *C) {
+	input := GetInt64Input("", strings.NewReader("1"))
+	c.Assert(input, Equals, int64(1))
+	c.Assert(input, FitsTypeOf, int64(1))
+}
